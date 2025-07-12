@@ -1,52 +1,100 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     "config:recommended",
     ":dependencyDashboard",
     ":semanticCommits",
     ":automergeMinor"
   ],
-  "schedule": ["before 6am on monday"],
+  "schedule": [
+    "before 6am on monday"
+  ],
   "timezone": "UTC",
-  "labels": ["dependencies"],
-  "assignees": ["behroozazarkhalili"],
-  "reviewers": ["behroozazarkhalili"],
+  "labels": [
+    "dependencies"
+  ],
+  "assignees": [
+    "behroozazarkhalili"
+  ],
+  "reviewers": [
+    "behroozazarkhalili"
+  ],
   "packageRules": [
     {
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["patch"],
+      "matchCategories": [
+        "python"
+      ],
+      "ignorePaths": [
+        "**/site-packages/**"
+      ]
+    },
+    {
+      "matchUpdateTypes": [
+        "patch"
+      ],
       "automerge": true,
       "groupName": "all patch dependencies",
-      "groupSlug": "all-patch"
+      "groupSlug": "all-patch",
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
-      "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor"],
+      "matchUpdateTypes": [
+        "minor"
+      ],
       "automerge": true,
-      "groupName": "all minor dependencies", 
-      "groupSlug": "all-minor"
+      "groupName": "all minor dependencies",
+      "groupSlug": "all-minor",
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
-      "matchPackagePatterns": ["torch", "transformers", "sentence-transformers"],
-      "matchUpdateTypes": ["major"],
-      "addLabels": ["ml-dependencies", "major-update"],
-      "reviewers": ["behroozazarkhalili"],
-      "schedule": ["on monday before 4am"]
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "ml-dependencies",
+        "major-update"
+      ],
+      "reviewers": [
+        "behroozazarkhalili"
+      ],
+      "schedule": [
+        "on monday before 4am"
+      ],
+      "matchPackageNames": [
+        "/torch/",
+        "/transformers/",
+        "/sentence-transformers/"
+      ]
     },
     {
-      "matchPackagePatterns": ["vllm", "flash-attn"],
-      "matchUpdateTypes": ["major"],
-      "addLabels": ["performance-dependencies", "major-update"],
-      "reviewers": ["behroozazarkhalili"],
-      "schedule": ["on monday before 4am"]
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "performance-dependencies",
+        "major-update"
+      ],
+      "reviewers": [
+        "behroozazarkhalili"
+      ],
+      "schedule": [
+        "on monday before 4am"
+      ],
+      "matchPackageNames": [
+        "/vllm/",
+        "/flash-attn/"
+      ]
     }
   ],
   "pip_requirements": {
-    "fileMatch": ["requirements\\.txt$"]
-  },
-  "python": {
-    "ignorePaths": ["**/site-packages/**"]
+    "managerFilePatterns": [
+      "/requirements\\.txt$/"
+    ]
   },
   "prConcurrentLimit": 5,
   "prHourlyLimit": 2,
@@ -60,8 +108,14 @@
   },
   "vulnerabilityAlerts": {
     "enabled": true,
-    "addLabels": ["security"],
-    "assignees": ["behroozazarkhalili"],
-    "reviewers": ["behroozazarkhalili"]
+    "addLabels": [
+      "security"
+    ],
+    "assignees": [
+      "behroozazarkhalili"
+    ],
+    "reviewers": [
+      "behroozazarkhalili"
+    ]
   }
 }
