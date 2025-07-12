@@ -5,7 +5,7 @@
     "config:recommended",
     ":dependencyDashboard",
     ":semanticCommits",
-    ":automergeDisabled"
+    ":automergeMinor"
   ],
   "schedule": ["before 6am on monday"],
   "timezone": "UTC",
@@ -15,10 +15,17 @@
   "packageRules": [
     {
       "matchPackagePatterns": ["*"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": false,
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch"
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "groupName": "all patch dependencies",
+      "groupSlug": "all-patch"
+    },
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true,
+      "groupName": "all minor dependencies", 
+      "groupSlug": "all-minor"
     },
     {
       "matchPackagePatterns": ["torch", "transformers", "sentence-transformers"],
