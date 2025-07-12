@@ -32,14 +32,14 @@
       "matchUpdateTypes": ["major"],
       "addLabels": ["ml-dependencies", "major-update"],
       "reviewers": ["behroozazarkhalili"],
-      "schedule": ["before 6am on first day of month"]
+      "schedule": ["before 6am on the first day of the month"]
     },
     {
       "matchPackagePatterns": ["vllm", "flash-attn"],
       "matchUpdateTypes": ["major"],
       "addLabels": ["performance-dependencies", "major-update"],
       "reviewers": ["behroozazarkhalili"],
-      "schedule": ["before 6am on first day of month"]
+      "schedule": ["before 6am on the first day of the month"]
     }
   ],
   "pip_requirements": {
