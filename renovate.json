@@ -1,0 +1,60 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":automergeDisabled"
+  ],
+  "schedule": ["before 6am on monday"],
+  "timezone": "UTC",
+  "labels": ["dependencies"],
+  "assignees": ["behroozazarkhalili"],
+  "reviewers": ["behroozazarkhalili"],
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": false,
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch"
+    },
+    {
+      "matchPackagePatterns": ["torch", "transformers", "sentence-transformers"],
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["ml-dependencies", "major-update"],
+      "reviewers": ["behroozazarkhalili"],
+      "schedule": ["before 6am on first day of month"]
+    },
+    {
+      "matchPackagePatterns": ["vllm", "flash-attn"],
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["performance-dependencies", "major-update"],
+      "reviewers": ["behroozazarkhalili"],
+      "schedule": ["before 6am on first day of month"]
+    }
+  ],
+  "pip_requirements": {
+    "fileMatch": ["requirements\\.txt$"]
+  },
+  "python": {
+    "ignorePaths": ["**/site-packages/**"]
+  },
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "commitMessageSuffix": "",
+  "prTitle": "Update {{depName}} to {{newVersion}}",
+  "prBodyTemplate": "This PR updates **{{depName}}** from `{{currentVersion}}` to `{{newVersion}}`.\n\n### Release Notes\n{{#if releases.length}}\n{{#each releases}}\n- [{{title}}]({{releaseNotes}})\n{{/each}}\n{{/if}}\n\n### Configuration\n📅 **Schedule**: {{schedule}}\n🚦 **Automerge**: {{automerge}}\n♻ **Rebasing**: {{rebaseWhen}}\n🔕 **Ignore**: Close this PR and you won't be reminded about this update again.\n\n---\n\n- [ ] If you want to rebase/retry this PR, check this box",
+  "lockFileMaintenance": {
+    "enabled": false
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "addLabels": ["security"],
+    "assignees": ["behroozazarkhalili"],
+    "reviewers": ["behroozazarkhalili"]
+  }
+}
